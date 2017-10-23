@@ -18,11 +18,11 @@ export class SlideMenu implements AfterViewInit{
     close: EventEmitter<number> = new EventEmitter<number>();
     @Output('onItemSelect')
     itemSelect: EventEmitter<number> = new EventEmitter<number>();
-    private menuState: boolean;
-    private targetElement: any;
-    private overlayElem: any;
+    public menuState: boolean;
+    public targetElement: any;
+    public overlayElem: any;
 
-    constructor(private _elementRef : ElementRef, private sanitizer: DomSanitizer) {   
+    constructor(public _elementRef : ElementRef, public sanitizer: DomSanitizer) {   
         this.addOverlayElement();
     }
 
@@ -32,7 +32,7 @@ export class SlideMenu implements AfterViewInit{
     ngAfterViewInit() {
        
     }
-    private menuToggle(){
+    public menuToggle(){
          this.menuState = !this.menuState; 
          this.toggleOverlay();     
          if(this.menuState){
@@ -42,17 +42,17 @@ export class SlideMenu implements AfterViewInit{
              this.close.emit();
          }
     }
-    private closeMenu(){
+    public closeMenu(){
          this.menuState = false; 
          this.overlayElem.style['opacity'] = 0;        
     }
-    private onItemClick(item:any){
+    public onItemClick(item:any){
           this.itemSelect.emit(item);  
     }
-    private toggleSubMenu(item:any){
+    public toggleSubMenu(item:any){
         item.expand = !item.expand;
     }
-    private addOverlayElement(){
+    public addOverlayElement(){
         this.overlayElem = document.createElement('div');
         this.overlayElem.classList.add('cuppa-menu-overlay');
         this.overlayElem.style['position'] = 'fixed';
@@ -66,7 +66,7 @@ export class SlideMenu implements AfterViewInit{
         this.overlayElem.style['transition'] = 'all .2s linear';
         document.getElementsByTagName('body')[0].appendChild(this.overlayElem);
     }
-    private toggleOverlay(){
+    public toggleOverlay(){
         if(this.overlayElem.style['opacity'] == 0){
             this.overlayElem.style['opacity'] = 1;
         }
